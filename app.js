@@ -3,40 +3,23 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+var tasks = [];
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 
 app.get("/", function(req, res){
+    var options = {weekday: "long", day: "numeric", month: "long"}
     var currentDay = new Date();
-    var day = currentDay.getDay();
-    var week = "";
-    switch (day){
-        case 0:
-            week = "Sunday";
-            break;
-        case 1:
-            week = "Monday";
-            break;
-        case 2:
-            week = "Tuesday";
-            break;
-        case 3:
-            week = "Wednesday";
-            break;
-        case 4:
-            week = "Thursday";
-            break;
-        case 5:
-            week = "Friday";
-            break;
-        case 6:
-            week = "Saturday";
-            break;
-        default:
-            console.log("Error");
-    }
-    res.render("list", {WeekDay: week});
+    var day = currentDay.toLocaleDateString("en-US", options);
+    res.render("list", {WeekDay: day, newTask: tasks});
+});
+
+app.post("/", function(req, res){
+    var newTask = req.body.nextTask;
+    tasks.push(newTask);
+    res.redirect("/");
 });
 
 app.listen(3000, function(){

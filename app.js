@@ -3,21 +3,23 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-var tasks = [];
+let tasks = ["Read book", "Do programming"];
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
 
 app.get("/", function(req, res){
-    var options = {weekday: "long", day: "numeric", month: "long"}
-    var currentDay = new Date();
-    var day = currentDay.toLocaleDateString("en-US", options);
+    let options = {weekday: "long", day: "numeric", month: "long"}
+    let currentDay = new Date();
+    let day = currentDay.toLocaleDateString("en-US", options);
     res.render("list", {WeekDay: day, newTask: tasks});
 });
 
 app.post("/", function(req, res){
-    var newTask = req.body.nextTask;
+    let newTask = req.body.nextTask;
     tasks.push(newTask);
     res.redirect("/");
 });

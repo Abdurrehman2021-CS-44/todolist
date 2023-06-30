@@ -8,15 +8,20 @@
 
   </head>
   <body>
-    <h1><%= WeekDay %></h1>
-    <ul>
+    <div class="box" id="heading">
+      <h1><%= WeekDay %></h1>
+    </div>
+    <div class="box">
       <% for (var i = 0; i < newTask.length; i++){ %>
-        <li> <%= newTask[i] %> </li>
+        <div class="item">
+          <input type="checkbox">
+          <p> <%= newTask[i] %> </p>
+        </div>
       <% } %>
-    </ul>
-    <form action="/" method="post">
-      <input type="text" name="nextTask">
-      <button type="submit">Add</button>
-    </form>
+      <form class="item" action="/" method="post">
+        <input type="text" name="nextTask" placeholder="New Task" autocomplete="off">
+        <button type="submit">+</button>
+      </form>
+    </div>
   </body>
 </html>

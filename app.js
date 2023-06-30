@@ -20,7 +20,9 @@ app.get("/", function(req, res){
 
 app.post("/", function(req, res){
     let newTask = req.body.nextTask;
-    tasks.push(newTask);
+    if (newTask !== ""){
+        tasks.push(newTask);
+    }
     res.redirect("/");
 });
 
